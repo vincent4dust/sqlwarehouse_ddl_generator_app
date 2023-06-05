@@ -1,0 +1,7 @@
+row_id,db_name,tbl_name,col_name,data_type,MAX_LEN,INT_CHK,Data Classification,PII/PSI/PHI?,Data Element,Data Domain,Remarks
+1303,dna_con_crn_delta,crn_agent_client,AGY_CD,string,10,FALSE,,,,,
+1304,dna_con_crn_delta,crn_agent_client,CLIENT_NO,string,8,FALSE,,,,,
+1305,dna_con_crn_delta,crn_agent_client,ALIAS_NAME,string,43,FALSE,Highly Confidential,PII,Full Name,Customer,
+1306,dna_con_pol_delta,pol_costoa,COL_A,string,10,FALSE,,,,,
+1307,dna_con_pol_delta,pol_costoa,COL_B,string,8,FALSE,Highly Confidential,PII,Full Name,Policy,
+1308,dna_con_pol_delta,pol_costoa,COL_C,string,43,FALSE,,,,,

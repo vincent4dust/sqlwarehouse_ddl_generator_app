@@ -1,0 +1,343 @@
+#:import Factory kivy.factory.Factory
+
+WindowManager:
+    MainWindow:
+    TutorialWindow:
+    ParameterWindow:
+
+<Button>:
+    background_normal: ""
+    background_color: (160/255,160/255,160/255,1)
+
+<Label>:
+    color: (0,0,0,1)
+
+<RunPop>:
+    auto_dismiss: False
+
+    size_hint: 0.6, 0.3
+    pos_hint: {"x": 0.2, "top": 0.9}
+    
+    title: "Run submitted"
+
+    BoxLayout:
+        padding: 10
+
+        canvas.before:
+            Color:
+                rgba: (240/255,240/255,240/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            id: runpop_label
+            font_size: 20
+            text: "NULL"
+
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "bottom"
+
+            Button:
+                font_size: 24
+                size_hint_x: None
+                width: root.width*0.2
+                size_hint_y: None
+                height: root.height*0.2
+                text: "OK"
+                on_release: root.dismiss()
+        
+<UpdatePop>:
+    auto_dismiss: False
+
+    size_hint: 0.6, 0.3
+    pos_hint: {"x": 0.2, "top": 0.9}
+    
+    title: "Update submitted"
+
+    BoxLayout:
+        padding: 10
+        
+        canvas.before:
+            Color:
+                rgba: (240/255,240/255,240/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            id: updatepop_label
+            font_size: 20
+            text: "NULL"
+
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "bottom"
+
+            Button:
+                font_size: 24
+                size_hint_x: None
+                width: root.width*0.2
+                size_hint_y: None
+                height: root.height*0.2
+                text: "OK"
+                on_release: root.dismiss()
+
+<MainWindow>:
+    name: "main"
+
+    GridLayout:
+        cols: 1
+        padding: 10
+
+        canvas.before:
+            Color:
+                rgba: (240/255,240/255,240/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        GridLayout:
+            cols: 2
+            spacing: 50, 50
+            size_hint_y: None
+            height: root.height*0.6
+
+            Label:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                text: "Source filename: "
+            TextInput:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                id: source_filename
+                multiline: False
+
+            Label:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                text: "Table list filename: "
+            TextInput:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                id: tablelist_filename
+                multiline: False
+
+            Label:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                text: "Config filename: "
+            TextInput:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                id: config_filename
+                multiline: False
+
+            Label:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                text: "Parameter: "
+            Button:
+                size_hint: 1, 0.2
+                font_size: root.width/30
+                text: "Configure"
+                on_release:
+                    app.root.current = "parameter"
+                    root.manager.transition.direction = "left"
+            
+        GridLayout:
+            cols: 2
+            
+            AnchorLayout:
+                anchor_x: "left"
+                anchor_y: "bottom"
+
+                Button:
+                    font_size: root.width/25
+                    size_hint_x: None
+                    width: root.width*0.3
+                    size_hint_y: None
+                    height: root.height*0.15
+                    text: "How to use"
+                    on_release:
+                        app.root.current = "tutorial"
+                        root.manager.transition.direction = "right"
+
+            AnchorLayout:
+                anchor_x: "right"
+                anchor_y: "bottom"
+
+                Button:
+                    font_size: root.width/25
+                    size_hint_x: None
+                    width: root.width*0.3
+                    size_hint_y: None
+                    height: root.height*0.15
+                    text: "Run"
+                    on_release: root.run_btn()
+
+        GridLayout:
+            cols: 2
+            size_hint_y: None
+            height: root.height*0.05
+
+            AnchorLayout:
+                anchor_x: "left"
+                anchor_y: "bottom"
+
+                Label:
+                    font_size: 12
+                    size_hint_x: None
+                    size_hint_y: None
+                    height: root.height*0.05
+                    text: "Version: 1.0.0"
+
+            AnchorLayout:
+                anchor_x: "right"
+                anchor_y: "bottom"
+
+                Label:
+                    font_size: 12
+                    size_hint_x: None
+                    size_hint_y: None
+                    height: root.height*0.05
+                    text: "Developer: Tzehong"
+
+<TutorialWindow>:
+    name: "tutorial"
+
+    GridLayout:
+        cols: 1
+        padding: 10
+
+        canvas.before:
+            Color:
+                rgba: (240/255,240/255,240/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        AnchorLayout:
+            anchor_x: "left"
+            anchor_y: "top"
+        
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                scroll_wheel_distance: 50
+            
+                Label:
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    font_size: root.width/50
+                    padding: 10, 10
+                    text: 
+                        "# sqlwarehouse_ddl_generator\n" +\
+                        "# This program is strictly for internal use only\n\n" +\
+                        "Assumption:\n" +\
+                        "1. The view schema name is concat from the database schema name\n" +\
+                        "2. Only string value in column db_name, tbl_name, col_name\n" +\
+                        "3. Make sure the source file is csv format & no redundant row at the last row\n" +\
+                        "4. Make sure the table list file is txt format\n\n" +\
+                        "How to run the program?\n" +\
+                        "1. Fill in the source file name\n" +\
+                        "2. Fill in the table list file name\n" +\
+                        "3. Fill in the config file name\n" +\
+                        "4. Put the source file, table list file, config file in folder named as 'input'\n" +\
+                        "5. Click configure button and update the config parameters\n" +\
+                        "6. Click run button\n" +\
+                        "7. The output file will be generated at folder named as 'output'\n"
+
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: root.height*0.3
+
+            AnchorLayout:
+                anchor_x: "right"
+                anchor_y: "bottom"
+
+                Button:
+                    font_size: root.width/25
+                    size_hint_x: None
+                    width: root.width*0.3
+                    size_hint_y: None
+                    height: root.height*0.15
+                    text: "Back"
+                    on_release:
+                        app.root.current = "main"
+                        root.manager.transition.direction = "left"
+
+<ParameterWindow>:
+    name: "parameter"
+
+    GridLayout:
+        cols: 1
+        padding: 10
+
+        canvas.before:
+            Color:
+                rgba: (240/255,240/255,240/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            scroll_wheel_distance: 50
+
+            Label:
+                id: config_label
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                font_size: root.width/50
+                padding: 10, 10
+                text: 
+                    '[DEFAULT]\n' +\
+                    'ENV = UAT\n\n' +\
+                    '[UAT]\n\n' +\
+                    '[PRD]'
+
+        GridLayout:
+            cols: 2
+            size_hint_y: None
+            height: root.height*0.3
+
+
+            AnchorLayout:
+                anchor_x: "left"
+                anchor_y: "bottom"
+
+                Button:
+                    font_size: root.width/25
+                    size_hint_x: None
+                    width: root.width*0.3
+                    size_hint_y: None
+                    height: root.height*0.15
+                    text: "Back"
+                    on_release:
+                        app.root.current = "main"
+                        root.manager.transition.direction = "right"
+
+            AnchorLayout:
+                anchor_x: "right"
+                anchor_y: "bottom"
+
+                Button:
+                    font_size: root.width/25
+                    size_hint_x: None
+                    width: root.width*0.3
+                    size_hint_y: None
+                    height: root.height*0.15
+                    text: "Update"
+                    on_release: root.update_btn()
